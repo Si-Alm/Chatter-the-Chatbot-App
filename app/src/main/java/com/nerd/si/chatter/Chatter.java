@@ -145,9 +145,6 @@ public class Chatter {
             response = getMeaningOfLife();
         }  else if (findKeyword(statement, "thank you") >= 0 || findKeyword(statement, "thanks") >= 0) {
             response = "You're welcome";
-        } else if (findKeyword(statement, "your creator") >= 0 || findKeyword(statement, "made you") >= 0) {
-            response = "The ever flatulent and recursively nerdy scrub known only as, \"Silas\", developed me slowly and non-eloquently";
-
         } else if ((hasWhats(statement) && // random verb response statements to respond to 'what's up' type statements
                 (findKeyword(statement, "up") >= 0        ||
                         findKeyword(statement, "chilling") >= 0)  ||
@@ -750,6 +747,10 @@ public class Chatter {
         } else if (findKeyword(statement, "where") >= 0) {
             response = transformWhereStatement(statement);
         } else if (findKeyword(statement, "who") >= 0 || findKeyword(statement, "whos") >=0) {
+            if((findKeyword(statement, "made") >=0 || findKeyword(statement ,"created")>=0 ||
+                    findKeyword(statement, "creator") >=0 || findKeyword(statement, "maker") >=0)&&
+                    (findKeyword(statement, "you") >=0 || findKeyword(statement, "your") >=0))
+                return "The ever flatulent and recursively nerdy scrub known only as, \"Silas\", developed me slowly and non-eloquently";
             response = whoProcessor(statement);
         } else if(findKeyword(statement, "will") >=0 && findKeyword(statement, "will") < 4) {
             response = willProcessor(statement);
