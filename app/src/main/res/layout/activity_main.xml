@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/black2"
+    android:background="@drawable/coverback1"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -63,13 +63,13 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
             android:layout_weight=".85"
-            android:background="#828282"
+            android:background="@drawable/notebook"
             android:ems="10"
             android:gravity="center"
             android:hint="Click to Chat"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:textColor="#ffffff" />
+            android:textColor="#1b1b1c" />
 
         <Button
             android:id="@+id/talkButton"

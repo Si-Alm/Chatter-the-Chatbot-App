@@ -1058,21 +1058,28 @@ public class Chatter {
 
         if(findKeyword(statement, "I") == 3) {
             if(findKeyword(statement, "you") >=0) {
-                int youPsn = findKeyword(statement, "you");
-                statement = statement.substring(0,youPsn+3);
-                statement = statement.replace("you", "me");
-
+                int youPsn = findKeyword(statement, "do you");
+                restOfStatement = statement.substring(youPsn+6);
+                restOfStatement = statement.substring(youPsn+6);
             }
             psn = findKeyword(statement, "do i");
-            restOfStatement = statement.substring(psn+4);
+            restOfStatement = statement.substring(psn+4).replace("you", "me");
             response = "Yes, you" + restOfStatement + ".";
         } else if(findKeyword(statement, "you") == 3) {
+            int youPsn = findKeyword(statement, "do you");
+            restOfStatement = statement.substring(youPsn+6);
+
+            if(findKeyword(statement, "me") >=0) {
+                return transformYouMeStatement(restOfStatement);
+            }
+
             psn = findKeyword(statement, "do you");
             restOfStatement = statement.substring(psn+6);
             response = "Yes, I" + restOfStatement + ".";
         }
         return response;
     }
+
 
     //TODO finish
     private String isProcessor(String statement) {
@@ -1192,7 +1199,8 @@ public class Chatter {
     //TODO make more expansive?
     private String areProcessor(String statement) {
         statement = stringTrimmer(statement);
-        statement = statement.substring(0, findKeyword(statement, "or")-1);
+        if(findKeyword(statement, "or") >=0)
+            statement = statement.substring(0, findKeyword(statement, "or")-1);
         String response = "";
         String restOfStatement = "";
 
@@ -1213,6 +1221,7 @@ public class Chatter {
 
         return response;
     }
+
 
     private boolean hasWhats(String statement) { // single method for checking if statement contains "what's" in some
         // form
