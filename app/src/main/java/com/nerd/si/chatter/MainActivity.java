@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         talkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statement = textInput.getText().toString();
+                statement = textInput.getText().toString().replace("'", "");
                 response = chat.getResponse(statement);
 
 

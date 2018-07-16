@@ -14,6 +14,7 @@ public class Chatter {
     // strings to track the previous user input and response
     protected String prevStatement = "";
     private String prevResponse = "";
+    private String userName = ""; //tracks users name(that they give themselves)
 
     private int greetingCount = 0; // keeps track of number of times getGreeting is called
     private int emptyCount = 0; // keeps track of number of times getEmptyResponse is called
@@ -84,14 +85,19 @@ public class Chatter {
                 (findKeyword(statement, "talk") >= 0    ||
                         findKeyword(statement, "converse") >= 0)) {
             response = "Okay, what would you like to talk about?";
-        } else if ((findKeyword(statement, "I hate") >= 0    ||
+        } else if((( findKeyword(statement, "my") >=0 && ((findKeyword(statement, "name") >=0 || findKeyword(statement, "names") >=0))) ||
+                findKeyword(statement, "im") >=0 || findKeyword(statement, "i am") >= 0|| findKeyword(statement, "call me") >=0 )     ||
+                findKeyword(prevResponse, "Chatter the Chatbot") >=0) {
+            userName = getName(statement);
+            return "Nice to meet you, " + userName + ".";
+        } else if ((findKeyword(statement, "I hate") >= 0 ||
                 findKeyword(statement, "I loathe") >= 0   ||
                 findKeyword(statement, "I despise") >= 0) &&
                 findKeyword(statement, "do") < 0){
             response = transformIHateStatement(statement);
         } else if (((hasUncertainty(statement)     &&
                 (toDiscuss(prevStatement)          ||
-                        toDiscuss(prevResponse)))          ||
+                        toDiscuss(prevResponse)))  ||
                 toDiscuss(statement))              ||
                 discussCount >= 1                  &&
                         (findKeyword(statement, "no") >= 0 ||
@@ -185,6 +191,34 @@ public class Chatter {
     ////////////////////////////Transformer methods//////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
 
+
+    private String getName(String statement) {
+        statement = stringTrimmer(statement);
+        int psn = 0;
+        String userName = "";
+        if(findKeyword(statement, "im") >=0) {
+            psn = findKeyword(statement, "im");
+            userName = statement.substring(psn + 3);
+
+        } else if(findKeyword(statement, "i am") >=0) {
+            psn = findKeyword(statement, "i am");
+            userName = statement.substring(psn+5);
+        }
+        else if(findKeyword(statement, "my name is") >=0) {
+            psn = findKeyword(statement, "my name is");
+            userName = statement.substring(psn+11);
+        } else if(findKeyword(statement, "my names") >=0) {
+            psn = findKeyword(statement, "my names");
+            userName = statement.substring(psn+9);
+        } else if(findKeyword(statement, "call me") >=0) {
+            psn = findKeyword(statement, "call me");
+            userName = statement.substring(psn+8);
+        }
+
+
+        userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
+        return userName;
+    }
     //String trimmer for transformation methods, namely just removes end punctuation
     private String stringTrimmer(String statement) {
         String lastChar = statement.substring(statement.length() - 1);
@@ -742,7 +776,7 @@ public class Chatter {
             else
                 //finish whatProcessor
                 response = whatProcessor(statement);
-        } else if (findKeyword(statement, "when") >= 0) {
+        } else if (findKeyword(statement, "when") >= 0|| findKeyword(statement, "whens") >=0) {
             response = whenProcessor(statement);
         } else if (findKeyword(statement, "where") >= 0) {
             response = transformWhereStatement(statement);
@@ -912,7 +946,7 @@ public class Chatter {
                 } // end inner favorite extended if
             } // end favorite if
             else if(findKeyword(statement, "name") >=0) {
-                response = "I'm Chatter the Chatbot.";
+                response = "I'm Chatter the Chatbot, who are you?";
             }
         } else {
             response = transformWhatIsStatement(statement);
@@ -1160,7 +1194,7 @@ public class Chatter {
         int psn = findKeyword(statement, "who");
 
         if(findKeyword(statement, "who are you") >=0)
-            return "I'm Chatter the Chatbot";
+            return "I'm Chatter the Chatbot, who are you?";
 
         if(findKeyword(statement, "who is") >=0 || findKeyword(statement, "whos")>=0) {
             if((findKeyword(statement, "favorite") >=0 &&
