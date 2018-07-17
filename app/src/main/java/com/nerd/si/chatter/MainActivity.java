@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 statement = textInput.getText().toString().replace("'", "");
-                response = chat.getResponse(statement);
-
+                try {
+                    response = chat.getResponse(statement);
+                } catch(StringIndexOutOfBoundsException e) {
+                    response = "Oh, no! An internal error has occurred. Sorry(sorta).";
+                }
 
                 chatOutput.setText("Chatter: " +response);
 
@@ -47,8 +50,4 @@ public class MainActivity extends AppCompatActivity {
         textInput.setOnEditorActionListener(new DoneOnEditorActionListener());
     }
 
-    private void showToast(String text) {
-        Toast.makeText(MainActivity.this, text, Toast.LENGTH_LONG).show();
-
-    }
 }

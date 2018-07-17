@@ -354,7 +354,7 @@ public class Chatter {
     }
 
     //TODO: Add separate method or inner structure for places
-    private String transformWhereStatement(String statement) {
+    private String transformWhereIsAreStatement(String statement) {
         statement = stringTrimmer(statement).trim();
         String restOfStatement = "";
         String plurality = "";
@@ -364,8 +364,16 @@ public class Chatter {
             restOfStatement = statement.substring(psn + 8).trim() + " is";
             plurality = "it";
         }
+        if(findKeyword(statement, "wheres") >=0) {
+            psn = findKeyword(statement, "wheres");
+            restOfStatement = statement.substring(psn+7) + "is";
+            plurality = "it";
+        }
         if (findKeyword(statement, "where are") >= 0) {
             psn = findKeyword(statement, "where are");
+            if(findKeyword(statement, "you") >=0) {
+                return "I'm wherever you want me to be...except on Mondays through Sundays.";
+            }
             restOfStatement = statement.substring(psn + 9).trim() + " are";
             plurality = "them";
         }
@@ -373,6 +381,21 @@ public class Chatter {
         //capitalizes first character of string
         restOfStatement = restOfStatement.substring(0, 1).toUpperCase() + restOfStatement.substring(1);
         return restOfStatement + " wherever you left " + plurality + ".";
+    }
+
+    private String transformWhereAmStatement(String statement) {
+        statement = stringTrimmer(statement);
+        String restOfStatement = "";
+        int psn = findKeyword(statement, "where am");
+        if(findKeyword(statement, "where am i") >=0) {
+            if(statement.length() <= 11)
+             return "How would I know where you're at, I ain't no stalker.";
+            psn = findKeyword(statement, "where am i");
+            restOfStatement = "you are " + statement.substring(psn+11).replace("my", "your").replace("me", "you");
+        } else {
+            restOfStatement = statement.substring(psn+9);
+        }
+        return "I am unsure of where " + restOfStatement + ".";
     }
 
     private String transformWhatDoesStatement(String statement) {
@@ -778,8 +801,11 @@ public class Chatter {
                 response = whatProcessor(statement);
         } else if (findKeyword(statement, "when") >= 0|| findKeyword(statement, "whens") >=0) {
             response = whenProcessor(statement);
-        } else if (findKeyword(statement, "where") >= 0) {
-            response = transformWhereStatement(statement);
+        } else if (findKeyword(statement, "where") >= 0 || findKeyword(statement, "wheres") >=0) {
+            if(findKeyword(statement, "where am") >=0)
+                response = transformWhereAmStatement(statement);
+            else
+                response = transformWhereIsAreStatement(statement);
         } else if (findKeyword(statement, "who") >= 0 || findKeyword(statement, "whos") >=0) {
             if((findKeyword(statement, "made") >=0 || findKeyword(statement ,"created")>=0 ||
                     findKeyword(statement, "creator") >=0 || findKeyword(statement, "maker") >=0)&&
