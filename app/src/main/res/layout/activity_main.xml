@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Fix layout, re-organize, fix output text view-->
+<!--android:background="@drawable/background"
+    android:background="@drawable/notebookpaper"
+      android:textColorHint="#000000"
+-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/coverback1"
+    android:background="@drawable/leather"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -14,6 +17,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
@@ -52,6 +56,7 @@
             android:text="Chatter: "
             android:textColor="#13d0d3"
             android:textSize="18sp"
+            android:fontFamily="sans-serif"
             android:textStyle="italic" />
 
         <EditText
@@ -63,13 +68,15 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
             android:layout_weight=".85"
-            android:background="@drawable/notebook"
+            android:fontFamily="sans-serif"
             android:ems="10"
             android:gravity="center"
+            android:background="@drawable/notebook"
+            android:textColorHint="#76757a"
             android:hint="Click to Chat"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:textColor="#1b1b1c" />
+            android:textColor="#161616" />
 
         <Button
             android:id="@+id/talkButton"
@@ -81,9 +88,10 @@
             android:layout_marginBottom="8dp"
             android:layout_weight=".45"
             android:textSize="13sp"
-            android:background="#1e2730"
+            android:background="#76757a"
+            android:fontFamily="sans-serif-light"
             android:text="Talk"
-            android:textColor="#abb2ba" />
+            android:textColor="#161616" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

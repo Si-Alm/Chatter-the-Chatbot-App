@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     response = chat.getResponse(statement);
                 } catch(StringIndexOutOfBoundsException e) {
-                    response = "Oh, no! An internal error has occurred. Sorry(sorta).";
+                    response = "Oh, no! Something went wrong, your statement may have been too long.";
+                } catch(RuntimeException e) {
+                    response = "Oops, something went wrong with my processors";
+                } catch(Exception e) {
+                    response = "That's weird, something strange went wrong...";
                 }
 
                 chatOutput.setText("Chatter: " +response);
