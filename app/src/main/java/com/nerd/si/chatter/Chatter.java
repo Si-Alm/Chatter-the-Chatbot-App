@@ -231,7 +231,7 @@ public class Chatter {
     }
 
     ////////////////////////////
-    //I <something transformers
+    //I <something> transformers
     ///////////////////////////
     /**
      * Method to transform an "I hate <something>" statement
@@ -666,7 +666,7 @@ public class Chatter {
                 "Yes, money cannot buy you happiness, but I’d still feel a lot more comfortable crying in a new BMW than on a bike.");
         jokes.add("Don’t be sad when a bird craps on your head. Be happy that dogs can’t fly.");
         jokes.add("What do you call a fake noodle...an impasta!");
-        jokes.add("What did the traffic light say to the car?" +
+        jokes.add("What did the traffic light say to the car? " +
                 "Don’t look! I’m about to change.");
         jokes.add("Why was the little strawberry crying?" +
                 "His mom was in a jam.");
